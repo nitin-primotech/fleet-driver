@@ -12,10 +12,10 @@ const MAP_ASPECT_RATIO = 1564 / 432;
 const SAFE_ART_ASPECT_RATIO = 560 / 144;
 
 const STOPS = [
-  { name: 'Delhi\nWarehouse', time: '08:30 AM', label: 'Completed', state: 'done' },
-  { name: 'Noida Hub', time: '12:45 PM', label: 'Current', state: 'current' },
-  { name: 'Ghaziabad\nDepot', time: '02:30 PM', label: 'Upcoming', state: 'upcoming' },
-  { name: 'Meerut Hub', time: '05:15 PM', label: 'Upcoming', state: 'upcoming' },
+  { name: 'Dallas\nWarehouse', time: '08:30 AM', label: 'Completed', state: 'done' },
+  { name: 'Fort Worth\nHub', time: '12:45 PM', label: 'Current', state: 'current' },
+  { name: 'Arlington\nDepot', time: '02:30 PM', label: 'Upcoming', state: 'upcoming' },
+  { name: 'Waco Hub', time: '05:15 PM', label: 'Upcoming', state: 'upcoming' },
 ] as const;
 
 const ACTIONS = [
@@ -26,8 +26,8 @@ const ACTIONS = [
 ] as const;
 
 const UPCOMING = [
-  { index: '3', title: 'Ghaziabad Depot', address: 'Plot 14, UPSIDC, Ghaziabad', time: '02:30 PM', distance: '48 km' },
-  { index: '4', title: 'Meerut Hub', address: 'NH 58, Meerut', time: '05:15 PM', distance: '102 km' },
+  { index: '3', title: 'Arlington Depot', address: '100 E Abram St, Arlington, TX', time: '02:30 PM', distance: '30 mi' },
+  { index: '4', title: 'Waco Hub', address: '200 Austin Ave, Waco, TX', time: '05:15 PM', distance: '64 mi' },
 ] as const;
 
 export function HomeScreen() {
@@ -41,20 +41,25 @@ export function HomeScreen() {
         showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>NG</Text>
+            <Text style={styles.avatarText}>JC</Text>
           </View>
           <View style={styles.greeting}>
             <Text style={styles.hello}>
               Good Morning,{'\n'}
-              <Text style={styles.name}>Nitin</Text>
+              <Text style={styles.name}>James</Text>
             </Text>
             <Text style={styles.tagline}>Drive safe, deliver on time!</Text>
           </View>
           <View style={styles.headerSide}>
-            <View style={styles.bell}>
+            <Pressable
+              accessibilityLabel="Notifications"
+              accessibilityRole="button"
+              hitSlop={12}
+              onPress={() => router.push('/notifications')}
+              style={styles.bell}>
               <SymbolView name="bell" resizeMode="scaleAspectFit" style={styles.bellIcon} tintColor={HomeColors.title} />
               <View style={styles.bellDot} />
-            </View>
+            </Pressable>
             <View style={styles.datePill}>
               <SymbolView name="calendar" resizeMode="scaleAspectFit" style={styles.dateIcon} tintColor={HomeColors.green} />
               <Text style={styles.dateText}>Mon, 22 Sep</Text>
@@ -70,8 +75,8 @@ export function HomeScreen() {
               <Text style={styles.progressText}>In Progress</Text>
             </View>
           </View>
-          <Text style={styles.tripTitle}>Deliver to Noida Hub</Text>
-          <Text style={styles.tripAddress}>A-62, Sector 63, Noida, UP</Text>
+          <Text style={styles.tripTitle}>Deliver to Fort Worth Hub</Text>
+          <Text style={styles.tripAddress}>500 Main St, Fort Worth, TX</Text>
 
           <View style={styles.track}>
             <View style={styles.trackLine} />
@@ -106,7 +111,7 @@ export function HomeScreen() {
               <SymbolView name="map" resizeMode="scaleAspectFit" style={styles.metricIcon} tintColor="#D7EBE6" />
               <View>
                 <Text style={styles.metricLabel}>Distance</Text>
-                <Text style={styles.metricValue}>28 km</Text>
+                <Text style={styles.metricValue}>18 mi</Text>
               </View>
             </View>
             <Pressable accessibilityRole="button" onPress={() => router.push('/navigate')} style={styles.navigate}>
@@ -117,7 +122,7 @@ export function HomeScreen() {
         </View>
 
         <Image
-          accessibilityLabel="Route map from the warehouse to Noida Hub"
+          accessibilityLabel="Route map from the warehouse to Fort Worth Hub"
           contentFit="cover"
           source={require('@/assets/images/home-map.png')}
           style={styles.map}
@@ -172,7 +177,7 @@ export function HomeScreen() {
             <View style={styles.bar}>
               <View style={[styles.barFill, { width: '68%', backgroundColor: HomeColors.fuel }]} />
             </View>
-            <Text style={styles.statDetail}>~ 420 km remaining</Text>
+            <Text style={styles.statDetail}>~ 260 mi remaining</Text>
           </View>
           <View style={styles.statCard}>
             <View style={styles.statHead}>
@@ -196,7 +201,7 @@ export function HomeScreen() {
           </View>
           <View style={styles.earningsCopy}>
             <Text style={styles.statLabel}>Today&apos;s Earnings</Text>
-            <Text style={styles.statValue}>₹ 1,250</Text>
+            <Text style={styles.statValue}>$185</Text>
           </View>
           <View style={styles.delta}>
             <Text style={styles.deltaValue}>↑ 12%</Text>

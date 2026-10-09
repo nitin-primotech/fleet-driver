@@ -16,7 +16,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Fonts, LoginColors } from '@/constants/theme';
 
-const COUNTRY_CODES = ['+91', '+1', '+44', '+61', '+971'] as const;
+const COUNTRY_CODES = ['+1', '+91', '+44', '+61', '+971'] as const;
 const HERO_ASPECT_RATIO = 1760 / 1176;
 const LOGO_ASPECT_RATIO = 1166 / 350;
 
@@ -29,9 +29,9 @@ export function LoginScreen() {
   const headerHeightRef = useRef(0);
   const windowHeightRef = useRef(windowHeight);
   const keyboardHeightRef = useRef(0);
-  const [countryCode, setCountryCode] = useState<(typeof COUNTRY_CODES)[number]>('+91');
+  const [countryCode, setCountryCode] = useState<(typeof COUNTRY_CODES)[number]>('+1');
   const [codeOpen, setCodeOpen] = useState(false);
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState('7477235744');
   const [phoneError, setPhoneError] = useState('');
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 

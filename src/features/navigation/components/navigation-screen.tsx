@@ -9,24 +9,23 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Fonts, HomeColors } from '@/constants/theme';
 
-const CAMERA = { latitude: 28.6168, longitude: 77.3736 };
-const ZOOM = 13.6;
+const CAMERA = { latitude: 32.7462, longitude: -97.346 };
+const ZOOM = 13.8;
 
-const VEHICLE = { latitude: 28.6124, longitude: 77.3696 };
-const DESTINATION = { latitude: 28.6288, longitude: 77.3772 };
+const VEHICLE = { latitude: 32.7488, longitude: -97.3522 };
+const DESTINATION = { latitude: 32.7555, longitude: -97.3308 };
 
 const ROUTE = [
   VEHICLE,
-  { latitude: 28.6152, longitude: 77.3704 },
-  { latitude: 28.6184, longitude: 77.3726 },
-  { latitude: 28.6216, longitude: 77.3751 },
-  { latitude: 28.6244, longitude: 77.3762 },
-  { latitude: 28.6268, longitude: 77.3766 },
+  { latitude: 32.7505, longitude: -97.348 },
+  { latitude: 32.752, longitude: -97.3435 },
+  { latitude: 32.7532, longitude: -97.3388 },
+  { latitude: 32.7544, longitude: -97.3345 },
   DESTINATION,
 ];
 
 const METRICS: { icon: SFSymbol; label: string; value: string }[] = [
-  { icon: 'mappin', label: 'Distance remaining', value: '2.8 km' },
+  { icon: 'mappin', label: 'Distance remaining', value: '1.7 mi' },
   { icon: 'clock', label: 'ETA', value: '6 min' },
   { icon: 'point.topleft.down.to.point.bottomright.curvepath', label: 'Trip progress', value: '65%' },
 ];
@@ -86,7 +85,7 @@ export function NavigationScreen() {
               coordinates: DESTINATION,
               systemImage: 'mappin',
               tintColor: '#1B2A33',
-              title: 'Noida Hub',
+              title: 'Fort Worth Hub',
             },
           ]}
         />
@@ -99,12 +98,12 @@ export function NavigationScreen() {
           <View style={styles.instruction}>
             <SymbolView name="arrow.turn.up.right" resizeMode="scaleAspectFit" style={styles.turnIcon} tintColor="#FFFFFF" />
             <View style={styles.instructionCopy}>
-              <Text style={styles.distance}>600 m</Text>
-              <Text style={styles.street}>Turn right onto Sector 63 Rd</Text>
+              <Text style={styles.distance}>0.4 mi</Text>
+              <Text style={styles.street}>Turn right onto Commerce St</Text>
               <View style={styles.thenRow}>
                 <Text style={styles.then}>Then</Text>
                 <SymbolView name="arrow.turn.up.right" resizeMode="scaleAspectFit" style={styles.thenIcon} tintColor="#C5CDD4" />
-                <Text style={styles.then}>350 m</Text>
+                <Text style={styles.then}>0.2 mi</Text>
               </View>
             </View>
           </View>
@@ -126,8 +125,8 @@ export function NavigationScreen() {
             </View>
             <View style={styles.destCopy}>
               <Text style={styles.ridingTo}>Riding to</Text>
-              <Text style={styles.destTitle}>Noida Hub</Text>
-              <Text style={styles.destAddress}>A-62, Sector 63, Noida, UP</Text>
+              <Text style={styles.destTitle}>Fort Worth Hub</Text>
+              <Text style={styles.destAddress}>500 Main St, Fort Worth, TX</Text>
             </View>
             <View style={styles.sheetRide}>
               <View style={styles.rideDot} />

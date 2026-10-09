@@ -7,10 +7,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Fonts, HomeColors } from '@/constants/theme';
 
-const HUB = '28.6288,77.3772';
+const HUB = '32.7555,-97.3308';
 
 const FACTS: { icon: SFSymbol; label: string; value: string }[] = [
-  { icon: 'point.topleft.down.to.point.bottomright.curvepath', label: 'Total Distance', value: '2.8 km' },
+  { icon: 'point.topleft.down.to.point.bottomright.curvepath', label: 'Total Distance', value: '1.7 mi' },
   { icon: 'clock', label: 'Estimated Time', value: '6 min' },
   { icon: 'point.topleft.down.to.point.bottomright.curvepath', label: 'Stops', value: '1 / 1' },
 ];
@@ -19,7 +19,7 @@ export function TripStopsScreen() {
   const insets = useSafeAreaInsets();
 
   function openAppleMaps() {
-    Linking.openURL(`https://maps.apple.com/?daddr=${HUB}&q=Noida%20Hub&dirflg=d`);
+    Linking.openURL(`https://maps.apple.com/?daddr=${HUB}&q=Fort%20Worth%20Hub&dirflg=d`);
   }
 
   return (
@@ -45,8 +45,8 @@ export function TripStopsScreen() {
             </View>
             <View style={styles.summaryCopy}>
               <Text style={styles.kicker}>Current Trip</Text>
-              <Text style={styles.hub}>Noida Hub</Text>
-              <Text style={styles.address}>A-62, Sector 63, Noida, UP</Text>
+              <Text style={styles.hub}>Fort Worth Hub</Text>
+              <Text style={styles.address}>500 Main St, Fort Worth, TX</Text>
             </View>
             <View style={styles.ridePill}>
               <View style={styles.rideDot} />
@@ -77,8 +77,8 @@ export function TripStopsScreen() {
               <View style={styles.stopHead}>
                 <View style={styles.stopCopy}>
                   <Text style={styles.kicker}>Start Location</Text>
-                  <Text style={styles.stopTitle}>Noida Hub</Text>
-                  <Text style={styles.address}>A-62, Sector 63, Noida, UP</Text>
+                  <Text style={styles.stopTitle}>Fort Worth Hub</Text>
+                  <Text style={styles.address}>500 Main St, Fort Worth, TX</Text>
                 </View>
                 <View style={styles.started}>
                   <SymbolView name="checkmark" resizeMode="scaleAspectFit" style={styles.startedIcon} tintColor={HomeColors.green} />
@@ -89,7 +89,7 @@ export function TripStopsScreen() {
                 <SymbolView name="location.fill" resizeMode="scaleAspectFit" style={styles.wayIcon} tintColor={HomeColors.green} />
                 <View>
                   <Text style={styles.wayTitle}>You are on the way</Text>
-                  <Text style={styles.wayDetail}>Keep going straight for 2.8 km</Text>
+                  <Text style={styles.wayDetail}>Keep going straight for 1.7 mi</Text>
                 </View>
               </View>
             </View>
@@ -103,8 +103,8 @@ export function TripStopsScreen() {
               <View style={styles.stopHead}>
                 <View style={styles.stopCopy}>
                   <Text style={styles.kicker}>Stop 1</Text>
-                  <Text style={styles.stopTitle}>Sector 62</Text>
-                  <Text style={styles.address}>Noida, UP</Text>
+                  <Text style={styles.stopTitle}>Downtown</Text>
+                  <Text style={styles.address}>Fort Worth, TX</Text>
                 </View>
                 <View style={styles.nextPill}>
                   <View style={styles.nextDot} />
@@ -114,7 +114,7 @@ export function TripStopsScreen() {
               <View style={styles.arrive}>
                 <SymbolView name="clock" resizeMode="scaleAspectFit" style={styles.arriveIcon} tintColor={HomeColors.body} />
                 <Text style={styles.arriveText}>
-                  Arrive in 6 min <Text style={styles.arriveDistance}>(2.8 km)</Text>
+                  Arrive in 6 min <Text style={styles.arriveDistance}>(1.7 mi)</Text>
                 </Text>
               </View>
             </View>
@@ -128,8 +128,8 @@ export function TripStopsScreen() {
               <View style={styles.stopHead}>
                 <View style={styles.stopCopy}>
                   <Text style={styles.kicker}>Final Destination</Text>
-                  <Text style={styles.stopTitle}>Noida Hub</Text>
-                  <Text style={styles.address}>A-62, Sector 63, Noida, UP</Text>
+                  <Text style={styles.stopTitle}>Fort Worth Hub</Text>
+                  <Text style={styles.address}>500 Main St, Fort Worth, TX</Text>
                 </View>
                 <View style={styles.pending}>
                   <View style={styles.pendingRing} />

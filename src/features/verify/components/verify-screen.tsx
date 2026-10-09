@@ -15,8 +15,8 @@ function firstParam(value: string | string[] | undefined) {
 }
 
 function formatPhone(countryCode: string, phone: string) {
-  if (countryCode === '+91' && phone.length === 10) {
-    return `${countryCode} ${phone.slice(0, 5)} ${phone.slice(5)}`;
+  if (countryCode === '+1' && phone.length === 10) {
+    return `${countryCode} (${phone.slice(0, 3)}) ${phone.slice(3, 6)}-${phone.slice(6)}`;
   }
   return `${countryCode} ${phone}`.trim();
 }
@@ -24,7 +24,7 @@ function formatPhone(countryCode: string, phone: string) {
 export function VerifyScreen() {
   const insets = useSafeAreaInsets();
   const params = useLocalSearchParams<{ countryCode?: string; phone?: string }>();
-  const countryCode = firstParam(params.countryCode) ?? '+91';
+  const countryCode = firstParam(params.countryCode) ?? '+1';
   const phone = firstParam(params.phone) ?? '';
   const inputRef = useRef<TextInput>(null);
   const [code, setCode] = useState('');

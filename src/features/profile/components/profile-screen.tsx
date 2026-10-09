@@ -11,7 +11,7 @@ import { confirmSignOut, DRIVER_FACTS, formatPhone, useProfile } from '@/feature
 
 const STATS: { icon: SFSymbol; value: string; label: string }[] = [
   { icon: 'chart.bar.fill', value: DRIVER_FACTS.trips, label: 'Trips Completed' },
-  { icon: 'point.topleft.down.to.point.bottomright.curvepath', value: DRIVER_FACTS.distance, label: 'Total Distance\n(km)' },
+  { icon: 'point.topleft.down.to.point.bottomright.curvepath', value: DRIVER_FACTS.distance, label: 'Total Distance\n(mi)' },
   { icon: 'clock.fill', value: DRIVER_FACTS.hours, label: 'Driving Hours' },
   { icon: 'star.fill', value: DRIVER_FACTS.rating, label: 'Rating' },
 ];
@@ -50,7 +50,7 @@ export function ProfileScreen() {
         tint: '#3B82F6',
         wash: HomeColors.blueSoft,
         title: 'Documents',
-        detail: 'License, RC, Insurance, PUC',
+        detail: 'License, registration, insurance, inspection',
         onPress: () => router.push('/account/documents'),
       },
       {

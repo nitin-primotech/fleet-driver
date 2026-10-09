@@ -6,7 +6,7 @@ import Animated, { Easing, Keyframe } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 
 const INITIAL_SCALE_FACTOR = Dimensions.get('screen').height / 90;
-const DURATION = 600;
+const DURATION = 1400;
 
 export function AnimatedSplashOverlay() {
   const [animate, setAnimate] = useState(false);
@@ -16,24 +16,20 @@ export function AnimatedSplashOverlay() {
 
   const splashKeyframe = new Keyframe({
     0: {
-      transform: [{ scale: 1 }],
       opacity: 1,
     },
-    20: {
+    65: {
       opacity: 1,
-    },
-    70: {
-      opacity: 0,
-      easing: Easing.elastic(0.7),
     },
     100: {
       opacity: 0,
-      transform: [{ scale: 1 }],
-      easing: Easing.elastic(0.7),
+      easing: Easing.out(Easing.cubic),
     },
   });
 
-  const image = <Image style={styles.image} source={require('@/assets/images/expo-logo.png')} />;
+  const image = (
+    <Image contentFit="cover" style={styles.splashImage} source={require('@/assets/images/splash.png')} />
+  );
 
   return animate ? (
     <Animated.View
@@ -138,11 +134,12 @@ const styles = StyleSheet.create({
     height: 128,
     position: 'absolute',
   },
+  splashImage: {
+    ...StyleSheet.absoluteFill,
+  },
   splashOverlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: '#208AEF',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
     zIndex: 1000,
   },
 });

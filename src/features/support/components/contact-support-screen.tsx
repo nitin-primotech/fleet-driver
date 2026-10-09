@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Fonts, HomeColors } from '@/constants/theme';
 
-const SUPPORT_PHONE = 'tel:+9118002023344';
+const SUPPORT_PHONE = 'tel:+18005550199';
 const SUPPORT_EMAIL = 'mailto:support@fleetpro.app';
 
 const ACTIONS: { icon: SFSymbol; title: string; detail: string; url: string }[] = [

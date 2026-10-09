@@ -1,4 +1,5 @@
 import { Image } from 'expo-image';
+import { router } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
 import type { SFSymbol } from 'expo-symbols';
 import { StatusBar } from 'expo-status-bar';
@@ -20,29 +21,29 @@ const FILTERS: { key: Filter; label: string; count?: string }[] = [
 
 const METRICS: { icon: SFSymbol; label: string; value: string }[] = [
   { icon: 'clock', label: 'ETA', value: '5:45 PM' },
-  { icon: 'map', label: 'Distance Left', value: '240 km' },
-  { icon: 'mappin', label: 'Next Stop', value: 'Kanpur' },
+  { icon: 'map', label: 'Distance Left', value: '150 mi' },
+  { icon: 'mappin', label: 'Next Stop', value: 'Waco' },
   { icon: 'doc.text', label: 'Stops', value: '2 remaining' },
 ];
 
 const STOPS = [
   {
-    title: 'Noida Warehouse',
-    address: 'Sector 62, Noida, UP',
+    title: 'Dallas Warehouse',
+    address: '1200 Commerce St, Dallas, TX',
     status: 'Completed',
     time: '08:15 AM',
     state: 'done',
   },
   {
-    title: 'Kanpur Distribution Center',
-    address: 'Transport Nagar, Kanpur, UP',
+    title: 'Waco Distribution Center',
+    address: '200 Austin Ave, Waco, TX',
     status: 'Next Stop',
     time: '~ 2h 15m',
     state: 'next',
   },
   {
-    title: 'Lucknow Hub',
-    address: 'Gomti Nagar, Lucknow, UP',
+    title: 'Houston Hub',
+    address: '4500 Navigation Blvd, Houston, TX',
     status: 'Upcoming',
     time: '--:--',
     state: 'upcoming',
@@ -108,18 +109,24 @@ function ActiveTrip() {
   return (
     <>
       <View style={styles.card}>
-        <Image
-          accessibilityLabel="Noida to Lucknow trip"
-          contentFit="cover"
-          source={require('@/assets/images/trip-hero.png')}
-          style={styles.hero}
-        />
+        <View style={styles.heroFrame}>
+          <Image
+            accessibilityLabel="Dallas to Houston trip"
+            contentFit="cover"
+            source={require('@/assets/images/trip-hero.png')}
+            style={styles.hero}
+          />
+          <View style={styles.heroLabel}>
+            <Text style={styles.heroTitle}>Dallas → Houston</Text>
+            <Text style={styles.heroMeta}>3 stops · 324 mi · 8h 30m (est.)</Text>
+          </View>
+        </View>
 
         <View style={styles.progress}>
           <View style={styles.progressDone} />
           <View style={styles.progressTodo} />
           <ProgressStep label="Started" detail="08:15 AM" state="done" />
-          <ProgressStep label="En Route" detail="240 km left" state="current" />
+          <ProgressStep label="En Route" detail="150 mi left" state="current" />
           <ProgressStep label="Complete" detail="--:--" state="upcoming" />
         </View>
 
@@ -133,7 +140,7 @@ function ActiveTrip() {
           ))}
         </View>
 
-        <Pressable accessibilityRole="button" style={styles.continueButton}>
+        <Pressable accessibilityRole="button" onPress={() => router.push('/navigate')} style={styles.continueButton}>
           <SymbolView name="location.fill" resizeMode="scaleAspectFit" style={styles.continueIcon} tintColor="#FFFFFF" />
           <Text style={styles.continueLabel}>Continue Trip</Text>
           <Text style={styles.continueChevron}>›</Text>
@@ -225,42 +232,42 @@ function ProgressStep({
 const UPCOMING_TRIPS = [
   {
     id: 'TRP-1290',
-    from: 'Anand Vihar',
-    to: 'Kanpur',
+    from: 'Dallas',
+    to: 'Houston',
     source: require('@/assets/images/upcoming-kanpur.png'),
-    aspectRatio: 864 / 296,
+    clipSign: true,
     stopsLabel: '5 stops',
-    distance: '420 km',
-    duration: 'Estimated 7h 20m',
+    distance: '261 mi',
+    duration: 'Estimated 4h 10m',
     date: 'Mon, 29 Sep',
     time: '06:00 AM',
     stops: [
-      { title: 'Anand Vihar Warehouse', address: 'Sector 62, Noida, UP', time: '06:00 AM' },
-      { title: 'Kanpur Distribution Center', address: 'Transport Nagar, Kanpur, UP', time: '10:00 AM' },
-      { title: 'Lucknow Hub', address: 'Gomti Nagar, Lucknow, UP', time: '03:00 PM' },
+      { title: 'Dallas Warehouse', address: '1200 Commerce St, Dallas, TX', time: '06:00 AM' },
+      { title: 'Waco Distribution Center', address: '200 Austin Ave, Waco, TX', time: '10:00 AM' },
+      { title: 'Houston Hub', address: '4500 Navigation Blvd, Houston, TX', time: '03:00 PM' },
     ],
   },
   {
     id: 'TRP-1291',
-    from: 'Delhi',
-    to: 'Jaipur',
+    from: 'Austin',
+    to: 'San Antonio',
     source: require('@/assets/images/upcoming-jaipur.png'),
-    aspectRatio: 864 / 182,
+    clipSign: false,
     stopsLabel: '3 stops',
-    distance: '320 km',
-    duration: 'Estimated 6h 10m',
+    distance: '80 mi',
+    duration: 'Estimated 1h 30m',
     date: 'Tue, 30 Sep',
     time: '08:30 AM',
   },
   {
     id: 'TRP-1292',
-    from: 'Agra',
-    to: 'Gwalior',
+    from: 'Phoenix',
+    to: 'Tucson',
     source: require('@/assets/images/upcoming-gwalior.png'),
-    aspectRatio: 864 / 96,
+    clipSign: false,
     stopsLabel: '4 stops',
-    distance: '260 km',
-    duration: 'Estimated 5h 45m',
+    distance: '116 mi',
+    duration: 'Estimated 2h 00m',
     date: 'Wed, 1 Oct',
     time: '07:00 AM',
   },
@@ -271,12 +278,15 @@ function UpcomingTrips() {
     <View style={styles.upcomingList}>
       {UPCOMING_TRIPS.map((trip) => (
         <View key={trip.id} style={styles.upcomingCard}>
-          <Image
-            accessibilityLabel={`${trip.from} to ${trip.to}`}
-            contentFit="cover"
-            source={trip.source}
-            style={[styles.upcomingHero, { aspectRatio: trip.aspectRatio }]}
-          />
+          <View style={styles.upcomingFrame}>
+            <Image
+              accessibilityLabel={`${trip.from} to ${trip.to}`}
+              contentFit="cover"
+              contentPosition="left"
+              source={trip.source}
+              style={trip.clipSign ? styles.upcomingHeroClip : styles.upcomingHero}
+            />
+          </View>
           <View style={styles.upcomingBody}>
             <View style={styles.upcomingHead}>
               <Text
@@ -354,48 +364,44 @@ function rangeLabel(filter: Filter) {
 const COMPLETED_TRIPS = [
   {
     id: 'TRP-1256',
-    from: 'Noida',
-    to: 'Lucknow',
+    from: 'Dallas',
+    to: 'Houston',
     source: require('@/assets/images/completed-lucknow.png'),
-    aspectRatio: 864 / 194,
     stopsLabel: '3 stops',
-    distance: '520 km',
+    distance: '324 mi',
     duration: '8h 20m',
     date: 'Tue, 24 Sep',
     time: '06:10 AM – 02:30 PM',
   },
   {
     id: 'TRP-1248',
-    from: 'Delhi',
-    to: 'Jaipur',
+    from: 'Austin',
+    to: 'San Antonio',
     source: require('@/assets/images/completed-jaipur.png'),
-    aspectRatio: 864 / 184,
     stopsLabel: '4 stops',
-    distance: '320 km',
+    distance: '80 mi',
     duration: '6h 45m',
     date: 'Fri, 20 Sep',
     time: '07:15 AM – 02:00 PM',
   },
   {
     id: 'TRP-1210',
-    from: 'Agra',
-    to: 'Gwalior',
+    from: 'Phoenix',
+    to: 'Tucson',
     source: require('@/assets/images/completed-gwalior.png'),
-    aspectRatio: 864 / 154,
     stopsLabel: '2 stops',
-    distance: '260 km',
+    distance: '116 mi',
     duration: '5h 10m',
     date: 'Mon, 16 Sep',
     time: '08:00 AM – 01:10 PM',
   },
   {
     id: 'TRP-1198',
-    from: 'Kanpur',
-    to: 'Varanasi',
+    from: 'Chicago',
+    to: 'St. Louis',
     source: require('@/assets/images/completed-varanasi.png'),
-    aspectRatio: 864 / 138,
     stopsLabel: '3 stops',
-    distance: '410 km',
+    distance: '255 mi',
     duration: '7h 35m',
     date: 'Wed, 11 Sep',
     time: '06:30 AM – 02:05 PM',
@@ -407,12 +413,14 @@ function CompletedTrips() {
     <View style={styles.upcomingList}>
       {COMPLETED_TRIPS.map((trip) => (
         <View key={trip.id} style={styles.upcomingCard}>
-          <Image
-            accessibilityLabel={`${trip.from} to ${trip.to}`}
-            contentFit="cover"
-            source={trip.source}
-            style={[styles.upcomingHero, { aspectRatio: trip.aspectRatio }]}
-          />
+          <View style={styles.upcomingFrame}>
+            <Image
+              accessibilityLabel={`${trip.from} to ${trip.to}`}
+              contentFit="cover"
+              source={trip.source}
+              style={styles.upcomingHero}
+            />
+          </View>
           <View style={styles.upcomingBody}>
             <View style={styles.upcomingHead}>
               <Text adjustsFontSizeToFit minimumFontScale={0.8} numberOfLines={1} style={styles.upcomingTitle}>
@@ -571,11 +579,41 @@ const styles = StyleSheet.create({
     gap: 12,
     boxShadow: '0 8px 20px rgba(27, 42, 51, 0.05)',
   },
-  hero: {
+  heroFrame: {
     width: '100%',
     aspectRatio: HERO_ASPECT_RATIO,
     borderRadius: 16,
     borderCurve: 'continuous',
+    overflow: 'hidden',
+  },
+  hero: {
+    width: '100%',
+    height: '100%',
+  },
+  heroLabel: {
+    position: 'absolute',
+    left: 12,
+    right: '30%',
+    top: '36%',
+    backgroundColor: '#F4F8FA',
+    borderRadius: 14,
+    borderCurve: 'continuous',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    gap: 2,
+  },
+  heroTitle: {
+    fontFamily: Fonts.sans,
+    fontSize: 18,
+    lineHeight: 22,
+    fontWeight: '700',
+    color: HomeColors.title,
+  },
+  heroMeta: {
+    fontFamily: Fonts.sans,
+    fontSize: 12,
+    lineHeight: 16,
+    color: HomeColors.body,
   },
   progress: {
     flexDirection: 'row',
@@ -878,10 +916,21 @@ const styles = StyleSheet.create({
     gap: 12,
     boxShadow: '0 8px 20px rgba(27, 42, 51, 0.05)',
   },
-  upcomingHero: {
+  upcomingFrame: {
     width: '100%',
+    aspectRatio: 864 / 182,
     borderRadius: 16,
     borderCurve: 'continuous',
+    overflow: 'hidden',
+    backgroundColor: '#D7E3EA',
+  },
+  upcomingHero: {
+    width: '100%',
+    height: '100%',
+  },
+  upcomingHeroClip: {
+    width: '152%',
+    height: '100%',
   },
   upcomingBody: {
     paddingHorizontal: 6,

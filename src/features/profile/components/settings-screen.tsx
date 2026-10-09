@@ -4,7 +4,7 @@ import { Fonts, HomeColors } from '@/constants/theme';
 import { ProfileScaffold } from '@/features/profile/components/profile-scaffold';
 import { updateProfile, useProfile, type DriverProfile } from '@/features/profile/profile-data';
 
-const LANGUAGES: DriverProfile['language'][] = ['English', 'Hindi'];
+const LANGUAGES: DriverProfile['language'][] = ['English', 'Spanish'];
 const MAPS: DriverProfile['mapStyle'][] = ['Standard', 'Satellite'];
 
 export function SettingsScreen() {

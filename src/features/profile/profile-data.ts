@@ -8,16 +8,16 @@ export type DriverProfile = {
   email: string;
   address: string;
   notifications: boolean;
-  language: 'English' | 'Hindi';
+  language: 'English' | 'Spanish';
   mapStyle: 'Standard' | 'Satellite';
   pin: string;
 };
 
 const INITIAL_PROFILE: DriverProfile = {
-  name: 'Rakesh Kumar',
-  phone: '9876543210',
-  email: 'rakesh.kumar@example.com',
-  address: 'Sector 62, Noida, UP',
+  name: 'James Carter',
+  phone: '2145550148',
+  email: 'james.carter@example.com',
+  address: '1200 Commerce St, Dallas, TX',
   notifications: true,
   language: 'English',
   mapStyle: 'Standard',
@@ -56,15 +56,15 @@ export function formatPhone(phone: string) {
   if (digits.length < 10) {
     return digits;
   }
-  return `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;
+  return `+1 (${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
 export const DRIVER_FACTS = {
   driverId: 'DRV-10234',
-  license: 'UP78 2012345',
+  license: 'TX 18472930',
   joined: '12 Jan 2024',
   trips: '42',
-  distance: '8,250',
+  distance: '5,130',
   hours: '210 h',
   rating: '4.8',
 } as const;
@@ -72,13 +72,13 @@ export const DRIVER_FACTS = {
 export const DRIVER_DOCUMENTS = [
   {
     title: 'Driving License',
-    number: 'UP78 2012345',
+    number: 'TX 18472930',
     status: 'Valid',
     detail: 'Valid until 12 Jan 2029',
   },
   {
-    title: 'Registration Certificate',
-    number: 'RC-UP16-88421',
+    title: 'Vehicle Registration',
+    number: 'TX 4821K',
     status: 'Valid',
     detail: 'Commercial goods vehicle',
   },
@@ -89,16 +89,16 @@ export const DRIVER_DOCUMENTS = [
     detail: 'Valid until 30 Mar 2027',
   },
   {
-    title: 'PUC',
-    number: 'PUC-22918',
+    title: 'Vehicle Inspection',
+    number: 'TX-229184',
     status: 'Valid',
     detail: 'Valid until 18 Dec 2026',
   },
 ] as const;
 
 export const ASSIGNED_VEHICLE = {
-  name: 'Tata Signa 5530.S',
-  plate: 'UP16 FT 2341',
+  name: 'Freightliner Cascadia',
+  plate: 'TX 4821K',
   type: 'Container truck',
   status: 'Assigned',
 } as const;

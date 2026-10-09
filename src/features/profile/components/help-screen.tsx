@@ -26,7 +26,7 @@ export function HelpScreen() {
       <View style={styles.card}>
         <Text style={styles.title}>FleetPro Support</Text>
         <Text style={styles.detail}>Call or email the desk, or send a request from this device.</Text>
-        <ProfileButton label="Call support" onPress={() => Linking.openURL('tel:+9118002023344')} />
+        <ProfileButton label="Call support" onPress={() => Linking.openURL('tel:+18005550199')} />
         <ProfileButton label="Email support" onPress={() => Linking.openURL('mailto:support@fleetpro.app')} />
       </View>
       <View style={styles.field}>

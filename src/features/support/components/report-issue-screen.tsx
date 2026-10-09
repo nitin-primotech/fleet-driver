@@ -77,7 +77,7 @@ export function ReportIssueScreen() {
               </View>
               <View style={styles.bannerCopy}>
                 <Text style={styles.bannerTitle}>Current trip</Text>
-                <Text style={styles.bannerDetail}>Deliver to Noida Hub · A-62, Sector 63</Text>
+                <Text style={styles.bannerDetail}>Deliver to Fort Worth Hub · 500 Main St</Text>
               </View>
             </View>
 
