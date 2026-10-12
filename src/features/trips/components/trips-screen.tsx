@@ -235,7 +235,6 @@ const UPCOMING_TRIPS = [
     from: 'Dallas',
     to: 'Houston',
     source: require('@/assets/images/upcoming-kanpur.png'),
-    clipSign: true,
     stopsLabel: '5 stops',
     distance: '261 mi',
     duration: 'Estimated 4h 10m',
@@ -252,7 +251,6 @@ const UPCOMING_TRIPS = [
     from: 'Austin',
     to: 'San Antonio',
     source: require('@/assets/images/upcoming-jaipur.png'),
-    clipSign: false,
     stopsLabel: '3 stops',
     distance: '80 mi',
     duration: 'Estimated 1h 30m',
@@ -264,7 +262,6 @@ const UPCOMING_TRIPS = [
     from: 'Phoenix',
     to: 'Tucson',
     source: require('@/assets/images/upcoming-gwalior.png'),
-    clipSign: false,
     stopsLabel: '4 stops',
     distance: '116 mi',
     duration: 'Estimated 2h 00m',
@@ -278,13 +275,13 @@ function UpcomingTrips() {
     <View style={styles.upcomingList}>
       {UPCOMING_TRIPS.map((trip) => (
         <View key={trip.id} style={styles.upcomingCard}>
-          <View style={styles.upcomingFrame}>
+          <View style={styles.upcomingPhotoFrame}>
             <Image
               accessibilityLabel={`${trip.from} to ${trip.to}`}
               contentFit="cover"
-              contentPosition="left"
+              contentPosition="center"
               source={trip.source}
-              style={trip.clipSign ? styles.upcomingHeroClip : styles.upcomingHero}
+              style={styles.upcomingPhotoFill}
             />
           </View>
           <View style={styles.upcomingBody}>
@@ -928,8 +925,16 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  upcomingHeroClip: {
-    width: '152%',
+  upcomingPhotoFrame: {
+    width: '100%',
+    aspectRatio: 864 / 296,
+    borderRadius: 16,
+    borderCurve: 'continuous',
+    overflow: 'hidden',
+    backgroundColor: '#D7E3EA',
+  },
+  upcomingPhotoFill: {
+    width: '100%',
     height: '100%',
   },
   upcomingBody: {
