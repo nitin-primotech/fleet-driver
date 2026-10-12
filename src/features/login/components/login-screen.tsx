@@ -15,6 +15,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Fonts, LoginColors } from '@/constants/theme';
+import { useAuth } from '@/features/auth';
 
 const COUNTRY_CODES = ['+1', '+91', '+44', '+61', '+971'] as const;
 const HERO_ASPECT_RATIO = 1760 / 1176;
@@ -93,6 +94,8 @@ export function LoginScreen() {
     }
   }
 
+  const { login } = useAuth();
+
   function handleContinue() {
     if (phone.length < 10) {
       setPhoneError('Enter a 10-digit mobile number');
@@ -103,6 +106,16 @@ export function LoginScreen() {
       pathname: '/verify',
       params: { countryCode, phone },
     });
+  }
+
+  async function handleGoogleLogin() {
+    Keyboard.dismiss();
+    try {
+      await login({ phone: phone || '2145550148', countryCode });
+      router.replace('/home');
+    } catch (error) {
+      console.error('[login] Google sign-in failed:', error);
+    }
   }
 
   function handleSelectCode(code: (typeof COUNTRY_CODES)[number]) {
@@ -217,6 +230,7 @@ export function LoginScreen() {
 
           <Pressable
             accessibilityRole="button"
+            onPress={handleGoogleLogin}
             style={({ pressed }) => [styles.googleButton, pressed && styles.googleButtonPressed]}>
             <Image
               accessibilityLabel="Google"

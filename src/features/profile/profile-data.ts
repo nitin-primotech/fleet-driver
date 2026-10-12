@@ -2,6 +2,8 @@ import { router } from 'expo-router';
 import { useSyncExternalStore } from 'react';
 import { Alert } from 'react-native';
 
+import { clearAuthSession, saveStoredProfile } from '@/features/auth/auth-storage';
+
 export type DriverProfile = {
   name: string;
   phone: string;
@@ -13,7 +15,7 @@ export type DriverProfile = {
   pin: string;
 };
 
-const INITIAL_PROFILE: DriverProfile = {
+export const INITIAL_PROFILE: DriverProfile = {
   name: 'James Carter',
   phone: '2145550148',
   email: 'james.carter@example.com',
@@ -26,6 +28,7 @@ const INITIAL_PROFILE: DriverProfile = {
 
 let profile = INITIAL_PROFILE;
 const listeners = new Set<() => void>();
+const signOutListeners = new Set<() => void>();
 
 function emit() {
   for (const listener of listeners) {
@@ -39,12 +42,43 @@ export function getProfile() {
 
 export function subscribeProfile(listener: () => void) {
   listeners.add(listener);
-  return () => listeners.delete(listener);
+  return () => {
+    listeners.delete(listener);
+  };
+}
+
+export function onSignOut(listener: () => void) {
+  signOutListeners.add(listener);
+  return () => {
+    signOutListeners.delete(listener);
+  };
+}
+
+export function triggerSignOut() {
+  for (const listener of signOutListeners) {
+    listener();
+  }
+}
+
+export function setProfile(nextProfile: DriverProfile) {
+  profile = nextProfile;
+  emit();
 }
 
 export function updateProfile(patch: Partial<DriverProfile>) {
   profile = { ...profile, ...patch };
   emit();
+  saveStoredProfile(profile).catch((err) => {
+    console.error('[profile-data] Failed to persist profile update:', err);
+  });
+}
+
+export function resetProfile() {
+  profile = INITIAL_PROFILE;
+  emit();
+  saveStoredProfile(INITIAL_PROFILE).catch((err) => {
+    console.error('[profile-data] Failed to reset profile storage:', err);
+  });
 }
 
 export function useProfile() {
@@ -103,13 +137,24 @@ export const ASSIGNED_VEHICLE = {
   status: 'Assigned',
 } as const;
 
-export function confirmSignOut() {
+export function confirmSignOut(onSignedOut?: () => void): void;
+export function confirmSignOut(event: unknown): void;
+export function confirmSignOut(arg?: unknown): void {
+  const onSignedOut = typeof arg === 'function' ? (arg as () => void) : undefined;
   Alert.alert('Logout', 'Sign out from your account?', [
     { text: 'Cancel', style: 'cancel' },
     {
       text: 'Logout',
       style: 'destructive',
-      onPress: () => router.dismissTo('/'),
+      onPress: async () => {
+        try {
+          await clearAuthSession();
+          triggerSignOut();
+          onSignedOut?.();
+        } finally {
+          router.replace('/');
+        }
+      },
     },
   ]);
 }

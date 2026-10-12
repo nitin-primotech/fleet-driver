@@ -6,6 +6,7 @@ import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Fonts, LoginColors } from '@/constants/theme';
+import { useAuth } from '@/features/auth';
 
 const CODE_LENGTH = 4;
 const LOGO_ASPECT_RATIO = 1166 / 350;
@@ -32,6 +33,23 @@ export function VerifyScreen() {
 
   function handleChangeCode(value: string) {
     setCode(value.replace(/\D/g, '').slice(0, CODE_LENGTH));
+  }
+
+  const { login } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleVerify() {
+    if (code.length < CODE_LENGTH || isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      await login({ phone, countryCode });
+      router.replace('/home');
+    } catch (error) {
+      console.error('[verify] Login error:', error);
+      setIsSubmitting(false);
+    }
   }
 
   const activeIndex = Math.min(code.length, CODE_LENGTH - 1);
@@ -86,14 +104,10 @@ export function VerifyScreen() {
 
       <Pressable
         accessibilityRole="button"
-        onPress={() => {
-          if (code.length < CODE_LENGTH) {
-            return;
-          }
-          router.replace('/home');
-        }}
-        style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}>
-        <Text style={styles.buttonLabel}>Verify</Text>
+        disabled={isSubmitting}
+        onPress={handleVerify}
+        style={({ pressed }) => [styles.button, (pressed || isSubmitting) && styles.buttonPressed]}>
+        <Text style={styles.buttonLabel}>{isSubmitting ? 'Verifying...' : 'Verify'}</Text>
         <Text style={styles.buttonArrow}>→</Text>
       </Pressable>
 

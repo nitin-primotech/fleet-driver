@@ -7,6 +7,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Fonts, HomeColors } from '@/constants/theme';
+import { useProfile } from '@/features/profile/profile-data';
 
 const MAP_ASPECT_RATIO = 1564 / 432;
 const SAFE_ART_ASPECT_RATIO = 560 / 144;
@@ -32,6 +33,15 @@ const UPCOMING = [
 
 export function HomeScreen() {
   const insets = useSafeAreaInsets();
+  const profile = useProfile();
+  const firstName = profile.name.trim().split(/\s+/)[0] || 'Driver';
+  const initials =
+    profile.name
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((part) => part[0]?.toUpperCase() ?? '')
+      .join('') || 'DR';
 
   return (
     <View style={styles.screen}>
@@ -41,12 +51,12 @@ export function HomeScreen() {
         showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>JC</Text>
+            <Text style={styles.avatarText}>{initials}</Text>
           </View>
           <View style={styles.greeting}>
             <Text style={styles.hello}>
               Good Morning,{'\n'}
-              <Text style={styles.name}>James</Text>
+              <Text style={styles.name}>{firstName}</Text>
             </Text>
             <Text style={styles.tagline}>Drive safe, deliver on time!</Text>
           </View>
