@@ -410,12 +410,13 @@ function CompletedTrips() {
     <View style={styles.upcomingList}>
       {COMPLETED_TRIPS.map((trip) => (
         <View key={trip.id} style={styles.upcomingCard}>
-          <View style={styles.upcomingFrame}>
+          <View style={styles.upcomingPhotoFrame}>
             <Image
               accessibilityLabel={`${trip.from} to ${trip.to}`}
               contentFit="cover"
+              contentPosition="center"
               source={trip.source}
-              style={styles.upcomingHero}
+              style={styles.upcomingPhotoFill}
             />
           </View>
           <View style={styles.upcomingBody}>
@@ -912,18 +913,6 @@ const styles = StyleSheet.create({
     padding: 10,
     gap: 12,
     boxShadow: '0 8px 20px rgba(27, 42, 51, 0.05)',
-  },
-  upcomingFrame: {
-    width: '100%',
-    aspectRatio: 864 / 182,
-    borderRadius: 16,
-    borderCurve: 'continuous',
-    overflow: 'hidden',
-    backgroundColor: '#D7E3EA',
-  },
-  upcomingHero: {
-    width: '100%',
-    height: '100%',
   },
   upcomingPhotoFrame: {
     width: '100%',

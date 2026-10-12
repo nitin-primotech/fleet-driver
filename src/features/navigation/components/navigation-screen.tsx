@@ -183,9 +183,6 @@ export function NavigationScreen() {
 
       <View pointerEvents="box-none" style={styles.overlay}>
         <View pointerEvents="box-none" style={[styles.top, { paddingTop: insets.top + 8 }]}>
-          <Pressable accessibilityLabel="Back" accessibilityRole="button" onPress={() => router.back()} style={styles.back}>
-            <SymbolView name="chevron.left" resizeMode="scaleAspectFit" style={styles.backIcon} tintColor={HomeColors.title} />
-          </Pressable>
           <View style={styles.instruction}>
             <SymbolView name="arrow.turn.up.left" resizeMode="scaleAspectFit" style={styles.turnIcon} tintColor="#FFFFFF" />
             <View style={styles.instructionCopy}>
@@ -244,10 +241,15 @@ export function NavigationScreen() {
             <SymbolView name="chevron.right" resizeMode="scaleAspectFit" style={styles.liveChevron} tintColor={HomeColors.muted} />
           </Pressable>
 
-          <Pressable accessibilityRole="button" onPress={() => router.back()} style={styles.end}>
-            <SymbolView name="phone.fill" resizeMode="scaleAspectFit" style={styles.endIcon} tintColor="#FFFFFF" />
-            <Text style={styles.endLabel}>End Ride</Text>
-          </Pressable>
+          <View style={styles.rideActions}>
+            <Pressable accessibilityLabel="Back" accessibilityRole="button" onPress={() => router.back()} style={styles.backRide}>
+              <SymbolView name="chevron.left" resizeMode="scaleAspectFit" style={styles.backRideIcon} tintColor={HomeColors.title} />
+            </Pressable>
+            <Pressable accessibilityRole="button" onPress={() => router.back()} style={styles.end}>
+              <SymbolView name="phone.fill" resizeMode="scaleAspectFit" style={styles.endIcon} tintColor="#FFFFFF" />
+              <Text style={styles.endLabel}>End Ride</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </View>
@@ -278,19 +280,6 @@ const styles = StyleSheet.create({
   top: {
     paddingHorizontal: 16,
     gap: 10,
-  },
-  back: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-    boxShadow: '0 6px 16px rgba(27, 42, 51, 0.12)',
-  },
-  backIcon: {
-    width: 16,
-    height: 16,
   },
   instruction: {
     alignSelf: 'stretch',
@@ -513,7 +502,26 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
   },
+  rideActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  backRide: {
+    width: 52,
+    height: 52,
+    borderRadius: 16,
+    borderCurve: 'continuous',
+    backgroundColor: '#F4F7F8',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backRideIcon: {
+    width: 16,
+    height: 16,
+  },
   end: {
+    flex: 1,
     height: 52,
     borderRadius: 16,
     borderCurve: 'continuous',
